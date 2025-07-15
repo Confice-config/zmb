@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.DepartmentMapper">
+    <insert id="insert">
+        insert into department (name, manager, description)
+        values (#{name}, #{manager}, #{description})
+    </insert>
+
+    <select id="selectAll" resultType="com.example.enetity.Department">
+        select * from department
+        <where>
+            <if test="name != null and name != ''">
+                name LIKE CONCAT('%', #{name}, '%') OR manager LIKE CONCAT('%', #{manager}, '%')
+            </if>
+        </where>
+        order by id ASC
+    </select>
+
+    <update id="updateById">
+        update department
+        set name = #{name}, manager = #{manager}, description = #{description}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.LeaveRequestMapper">
+
+
+
+    <!-- 分页+模糊搜索（数字搜索ID，文字模糊匹配状态或请假类型） -->
+    <select id="selectPage" resultType="com.example.enetity.LeaveRequest">
+        SELECT * FROM leave_request
+        <where>
+
+            <!-- 员工ID：数字类型，非null时精确匹配 -->
+            <if test="employeeId != null">
+                AND employee_id = #{employeeId}
+            </if>
+
+            <!-- 请假类型：枚举值，非空时精确匹配（避免模糊匹配） -->
+            <if test="leaveType != null and leaveType != ''">
+                AND leave_type = #{leaveType}
+            </if>
+
+            <!-- 状态：字符串类型，非空时模糊匹配 -->
+            <if test="status != null and status != ''">
+                AND status LIKE CONCAT('%', #{status}, '%')
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+    <select id="selectAll" resultType="com.example.enetity.LeaveRequest">
+        select * from `leave_request`
+    </select>
+
+
+</mapper>

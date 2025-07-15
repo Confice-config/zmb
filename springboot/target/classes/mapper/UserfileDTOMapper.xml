@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserfileDTOMapper">
+
+    <select id="selectUserProfileWithDept" resultType="com.example.enetity.UserfileDTO">
+        SELECT
+            u.id AS userid,
+            u.avatar AS employeeAvatar,
+            e.`name` AS employeeName,
+            e.gender AS employeeGender,
+            e.age AS employeeAge,
+            e.phone AS employeePhone,
+            e.email AS employeeEmail,
+            d.`name` AS employeeDepartmentName,
+            e.position AS employeePosition,
+            e.hire_date AS hireDate,
+            e.`status` AS employeeStatus
+        FROM
+            `user` u
+                LEFT JOIN
+            employee e ON u.employee_id = e.id
+                LEFT JOIN
+            department d ON e.department_id=d.id
+        WHERE
+            u.id=#{userid}
+    </select>
+    <update id="userfileDTOupdate">
+        UPDATE
+            `user` u
+            LEFT JOIN
+            employee e ON u.employee_id = e.id
+            SET
+                u.avatar=#{employeeAvatar},
+                e.`name`=#{employeeName},
+                e.gender=#{employeeGender},
+                e.age=#{employeeAge},
+                e.phone=#{employeePhone},
+                e.email=#{employeeEmail}
+        WHERE
+            u.id=#{userid}
+    </update>
+</mapper>

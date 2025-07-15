@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress ALL -->
+<mapper namespace="com.example.mapper.EmployeeMapper">
+    <insert id="insert">
+        insert into `employee`(name,gender,age,phone,email,department_id,hire_date,position)
+        values (#{name},#{gender},#{age},#{phone},#{email},#{departmentId},#{hireDate},#{position})
+    </insert>
+    <select id="selectAll" resultType="com.example.enetity.Employee">
+        select * from `employee`
+        <where>
+            <!-- 精确匹配部门ID -->
+            <if test="departmentId != null">
+                ( department_id = #{departmentId})
+            </if>
+            <!-- 模糊匹配姓名 -->
+            <if test="name != null and name != ''">
+                and name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+        order by id ASC
+    </select>
+    <select id="selectByPage" resultType="com.example.enetity.Employee">
+        select * from `employee`
+        <where>
+            <if test="departmentId != null and departmentId != ''">
+                ( department_id = #{departmentId})
+            </if>
+            <!-- 模糊匹配姓名 -->
+            <if test="name != null and name != ''">
+                and name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        <if test="ids != null and ids !=''">
+            and id in
+        <foreach collection="idsArr" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+        </if>
+        </where>
+    </select>
+    <update id="updateById">
+        update `employee` set name = #{name},gender = #{gender},age = #{age},phone = #{phone},email = #{email},department_id = #{departmentId},hire_date = #{hireDate},position = #{position},status = #{status} WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <insert id="insert">
+        insert into `user`(avatar)
+        values (#{avatar})
+    </insert>
+
+    <update id="updateById">
+        update `user` set avatar={#avatar} WHERE id = #{id}
+    </update>
+    <update id="updatepass">
+        update `user` set password=#{password} WHERE id = #{id}
+    </update>
+
+</mapper>
