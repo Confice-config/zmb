@@ -11,6 +11,7 @@
 | 开发工具   | IntelliJ IDEA            | -          | 前后端开发                   |  
 | 版本控制   | Git                      | -          | 代码版本管理                 |  
 | 其他       | JWT                      | 4.3.0      | 用户认证与权限控制           |  
+
 系统部分如下图所示：
 <img width="865" height="426" alt="image" src="https://github.com/user-attachments/assets/b5a09e04-509b-4fc0-8cbe-c37edd60bb3f" />
 <img width="865" height="918" alt="image" src="https://github.com/user-attachments/assets/8dd5cfcb-818a-4315-babb-eefbfb7917d9" />
